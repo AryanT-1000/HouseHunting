@@ -1,3 +1,4 @@
 # HouseHunting
 
-This is a semester project repo
+## This is a semester based project repo
+# using django
