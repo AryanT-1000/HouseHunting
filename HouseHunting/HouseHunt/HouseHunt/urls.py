@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from loging import views
+from django.conf.urls import include #to add
 
 from loging.views import UserLoginView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index ),
-    path('login/', UserLoginView.as_view(), name='login'),
+    path('loging/', include('loging.urls'), name='login'),
 ]
