@@ -1,10 +1,11 @@
-from django.contrib import admin
 from django.urls import path
+
 from loging import views
 
-from loging.views import UserLoginView
+app_name = 'login'
 
-
-urlpatterns = [path('login',UserLoginView.as_view(), name='UserLoginView'),
-               path('home',views.home, name='home'),
-               path('account',views.account, name='account'),]
+urlpatterns = [
+    path('', views.LoginFormView.as_view(), name="LoginForm"),
+    path('login/', views.login_user, name='login_user'),
+    # path('thanks/', views.rev, name='thanks_page'),
+]

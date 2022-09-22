@@ -1,28 +1,32 @@
-from django.http import HttpResponse
-from loging.forms import LoginForm
-# from loging.models import TenentUser
-from django.views.generic import CreateView
 from django.shortcuts import render
+from loging.models import TenentUser
 from django.views.generic.edit import FormView
+from loging.forms import LoginForm
 
 # Create your views here.
 
-class UserCreateView(CreateView): 
-    pass
-
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, "loging/home.html",{})
 
-class UserLoginView(FormView):
+def rev(request):
+    return render(request, "loging/thanks.html",{})
+
+class LoginFormView(FormView):
+    template_name = 'loging/account.html' # 'loging/login.html'
     form_class = LoginForm
-    template_name = 'login.html'
-    success_url = 'thanks.html'
+    # success_url = 'home1.html'
 
-    def form_valid(self, form):
-        return super().form_valid()
-
-def home(request):
-    return render(request,'home.html',{})
-    
-def account(request):
-    return render(request,'account.html')
+def login_user(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        try:
+            user = TenentUser.emp_auth.get(email=email, password=password)
+            if user is not None:
+                return render(request, 'thanks.html', {})
+            else:
+                print('Invalid user')
+        except Exception as identifier:
+            return render(request, 'loging/home.html')
+    else:
+        return render(request, 'loging/login.html')

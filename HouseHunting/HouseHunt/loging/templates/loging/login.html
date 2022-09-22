@@ -1,0 +1,24 @@
+<html>
+<body>
+    <form action="{% url 'home:home'%}"method='post'>
+        {% csrf_token %}
+        {% for field in form %}
+        <tr>
+          {% if field.name == 'email' %}
+          <th><label for="id_email">Email:</label></th>
+          <td>
+            <input type="email" name="email" maxlength="254" required id="id_email">
+          </td>
+          {% else %}
+
+          <th><label for="id_password">Password:</label></th>
+          <td>
+            <input type="password" name="password"  maxlength="30" required id="id_password">
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+        <button type="submit">login</button>
+    </form>
+</body>
+</html>
